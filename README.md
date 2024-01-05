@@ -26,29 +26,7 @@ Certifique-se de ter o Java Development Kit (JDK) instalado no seu sistema antes
     ```
 
     Repita este passo pelo menos duas vezes para simular a comunicação entre dois utilizadores. Adicione mais instâncias do cliente conforme necessário para envolver mais utilizadores no chat.
-
-
-
-## Estados e Transições
-
-| Estado Atual | Evento | Ação | Próximo Estado | Notas |
-|--------------|--------|------|----------------|-------|
-| init         | /nick nome && !disponível(nome) | ERROR | init | - |
-| init         | /nick nome && disponível(nome) | OK | outside | Nome fica indisponível para outros utilizadores |
-| outside      | /join sala | OK para o utilizador | JOINED nome para os outros utilizadores na sala | Entrou na sala sala; começa a receber mensagens dessa sala |
-| outside      | /nick nome && !disponível(nome) | ERROR | outside | Mantém o nome antigo |
-| outside      | /nick nome && disponível(nome) | OK | outside | - |
-| inside       | mensagem | MESSAGE nome mensagem para todos os utilizadores na sala | inside | Necessário escape de / inicial, i.e., / passa a //, // passa a ///, etc. |
-| inside       | /nick nome && !disponível(nome) | ERROR | inside | Mantém o nome antigo |
-| inside       | /nick nome && disponível(nome) | OK para o utilizador | NEWNICK nome_antigo nome para os outros utilizadores na sala | - |
-| inside       | /join sala | OK para o utilizador | JOINED nome para os outros utilizadores na sala nova | Entrou na sala sala; começa a receber mensagens dessa sala; deixa de receber mensagens da sala antiga |
-| inside       | /leave | OK para o utilizador | LEFT nome para os outros utilizadores na sala antiga | - |
-| inside       | /bye | BYE para o utilizador | LEFT nome para os outros utilizadores na sala | Servidor fecha a conexão ao cliente |
-| inside       | Utilizador fechou a conexão | LEFT nome para os outros utilizadores na sala | - | Servidor fecha a conexão ao cliente |
-| Qualquer exceto inside | /bye | BYE para o utilizador | - | Servidor fecha a conexão ao cliente |
-| Qualquer exceto inside | Utilizador fechou a conexão | - | - | Servidor fecha a conexão ao cliente |
-| Qualquer exceto inside | Mensagem | ERROR | - | Mantém o estado |
-| Qualquer exceto inside | Comando não suportado nesse estado | ERROR | - | Mantém o estado |
+   
 
 ## Realizado por:
 
